@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edit_text_todo_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="null"
+        android:hint="Enter title..."
+        android:inputType="text"
+        android:textSize="22sp"
+        tools:ignore="HardcodedText" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edit_text_todo_goal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:background="null"
+        android:gravity="top"
+        android:hint="Write your thoughts, goals and etc."
+        android:inputType="text"
+        android:textSize="16sp"
+        tools:ignore="HardcodedText" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
