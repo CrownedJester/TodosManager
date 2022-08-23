@@ -1,4 +1,4 @@
-package com.crownedjester.soft.todosmanager.presentation
+package com.crownedjester.soft.todosmanager.presentation.fragment.add_todo
 
 import android.os.Bundle
 import android.view.View
