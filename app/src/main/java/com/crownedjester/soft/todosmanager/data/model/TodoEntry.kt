@@ -6,9 +6,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "todo_table")
 data class TodoEntry(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Int = 0,
     val title: String,
     val goal: String,
     val publishDate: String,
-    val publishTime: String
 )
