@@ -6,8 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:padding="8dp"
-    app:cardElevation="4dp"
-
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
     app:strokeWidth="1dp">
 
     <LinearLayout
@@ -43,6 +43,16 @@
             android:textSize="16sp"
             tools:ignore="HardcodedText" />
 
+        <TextView
+            android:id="@+id/text_view_todo_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:text="mm/dd/yyyy"
+            android:textStyle="italic"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 
