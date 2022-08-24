@@ -11,9 +11,11 @@ interface DashboardContract {
 
         fun onViewCreated()
 
-        fun onNavigate()
+        fun onFabClick()
 
         fun onItemLongClicked(scope: CoroutineScope, entry: TodoEntry)
+
+        fun onItemClick(entry: TodoEntry)
 
     }
 
@@ -22,6 +24,8 @@ interface DashboardContract {
         fun displayTodosEntries(todosFlow: Flow<List<TodoEntry>>)
 
         fun navigateToCreateTodo()
+
+        fun navigateToEditTodo(entry: TodoEntry)
 
     }
 }

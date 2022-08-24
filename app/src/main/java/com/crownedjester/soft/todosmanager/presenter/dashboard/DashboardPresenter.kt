@@ -18,12 +18,16 @@ class DashboardPresenter(
         view?.displayTodosEntries(getTodos())
     }
 
-    override fun onNavigate() {
+    override fun onFabClick() {
         view?.navigateToCreateTodo()
     }
 
     override fun onItemLongClicked(scope: CoroutineScope, entry: TodoEntry) {
         deleteTodo(scope, entry)
+    }
+
+    override fun onItemClick(entry: TodoEntry) {
+        view?.navigateToEditTodo(entry)
     }
 
     override fun onDestroy() {

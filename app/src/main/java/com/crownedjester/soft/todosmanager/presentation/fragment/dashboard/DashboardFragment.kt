@@ -45,7 +45,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), DashboardContra
             recyclerViewTodos.layoutManager = LinearLayoutManager(view.context)
 
             binding.fabAddTodo.setOnClickListener {
-                presenter.onNavigate()
+                presenter.onFabClick()
             }
 
         }
@@ -68,6 +68,11 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), DashboardContra
         navController.navigate(R.id.action_dashboardFragment_to_addTodoFragment)
     }
 
+    override fun navigateToEditTodo(entry: TodoEntry) {
+        setFragmentResult(BundleUtil.SEND_TODO_REQUEST_KEY, bundleOf(BundleUtil.TODO_KEY to entry))
+        navController.navigate(R.id.action_dashboardFragment_to_addTodoFragment)
+    }
+
     override fun setPresenter(presenter: DashboardContract.Presenter) {
         this.presenter = presenter
     }
@@ -83,8 +88,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), DashboardContra
     }
 
     override fun onItemClick(entry: TodoEntry) {
-        setFragmentResult(BundleUtil.SEND_TODO_REQUEST_KEY, bundleOf(BundleUtil.TODO_KEY to entry))
-        navController.navigate(R.id.action_dashboardFragment_to_addTodoFragment)
+        presenter.onItemClick(entry)
     }
 
 }
