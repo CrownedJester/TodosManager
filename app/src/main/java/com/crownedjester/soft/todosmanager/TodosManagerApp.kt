@@ -1,6 +1,8 @@
 package com.crownedjester.soft.todosmanager
 
 import android.app.Application
+import com.crownedjester.soft.todosmanager.di.module
+import com.crownedjester.soft.todosmanager.di.useCasesModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -11,7 +13,7 @@ class TodosManagerApp : Application() {
         super.onCreate()
 
         startKoin {
-            modules()
+            modules(listOf(module, useCasesModule))
             androidContext(this@TodosManagerApp)
             androidLogger()
         }
