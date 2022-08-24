@@ -40,6 +40,10 @@ class DashboardAdapter(private val dashboardAdapterCallback: DashboardAdapterCal
                     dashboardAdapterCallback.onItemLongClicked(entry)
                     false
                 }
+
+                itemView.setOnClickListener {
+                    dashboardAdapterCallback.onItemClick(entry)
+                }
             }
         }
 

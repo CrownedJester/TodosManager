@@ -2,7 +2,9 @@ package com.crownedjester.soft.todosmanager.presentation.fragment.dashboard
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.crownedjester.soft.todosmanager.R
 import com.crownedjester.soft.todosmanager.data.model.TodoEntry
 import com.crownedjester.soft.todosmanager.databinding.FragmentDashboardBinding
+import com.crownedjester.soft.todosmanager.presentation.util.BundleUtil
 import com.crownedjester.soft.todosmanager.presenter.dashboard.DashboardContract
 import com.crownedjester.soft.todosmanager.presenter.dashboard.DashboardPresenter
 import kotlinx.coroutines.Dispatchers
@@ -35,32 +38,33 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), DashboardContra
 
         _binding = FragmentDashboardBinding.bind(view)
 
-        binding.recyclerViewTodos.adapter = adapter
-        binding.recyclerViewTodos.layoutManager = LinearLayoutManager(view.context)
-
         setPresenter(DashboardPresenter(this))
 
-//        presenter.onViewCreated()
+        binding.apply {
+            recyclerViewTodos.adapter = adapter
+            recyclerViewTodos.layoutManager = LinearLayoutManager(view.context)
 
-        adapter.differ.submitList(setupFakeData())
+            binding.fabAddTodo.setOnClickListener {
+                presenter.onNavigate()
+            }
 
-        binding.fabAddTodo.setOnClickListener {
-            presenter.onNavigate()
         }
+
+        presenter.onViewCreated()
 
     }
 
     override fun displayTodosEntries(todosFlow: Flow<List<TodoEntry>>) {
-        lifecycleScope.launch(Dispatchers.IO) {
-            repeatOnLifecycle(Lifecycle.State.CREATED) {
+        lifecycleScope.launch(Dispatchers.Main) {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 todosFlow.collectLatest {
-                    /*todo display data*/
+                    adapter.differ.submitList(it)
                 }
             }
         }
     }
 
-    override fun navigateToAddTodo() {
+    override fun navigateToCreateTodo() {
         navController.navigate(R.id.action_dashboardFragment_to_addTodoFragment)
     }
 
@@ -78,29 +82,9 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), DashboardContra
         presenter.onItemLongClicked(lifecycleScope, entry)
     }
 
-    private fun setupFakeData() =
-        listOf(
-            TodoEntry(1, "abc", "cba", "", ""),
-            TodoEntry(
-                2,
-                "abc",
-                "cbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "",
-                ""
-            ),
-            TodoEntry(
-                3,
-                "abc",
-                "cbabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-                "",
-                ""
-            ),
-            TodoEntry(4, "abc", "cba", "", ""),
-            TodoEntry(5, "abc", "cba", "", ""),
-            TodoEntry(6, "abc", "cba", "", ""),
-            TodoEntry(7, "abc", "cba", "", ""),
-            TodoEntry(8, "abc", "cba", "", ""),
-            TodoEntry(9, "abc", "cba", "", ""),
-        )
+    override fun onItemClick(entry: TodoEntry) {
+        setFragmentResult(BundleUtil.SEND_TODO_REQUEST_KEY, bundleOf(BundleUtil.TODO_KEY to entry))
+        navController.navigate(R.id.action_dashboardFragment_to_addTodoFragment)
+    }
 
 }

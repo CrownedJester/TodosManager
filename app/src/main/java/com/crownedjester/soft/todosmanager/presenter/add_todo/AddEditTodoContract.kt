@@ -1,27 +1,25 @@
-package com.crownedjester.soft.todosmanager.presenter.dashboard
+package com.crownedjester.soft.todosmanager.presenter.add_todo
 
 import com.crownedjester.soft.todosmanager.data.model.TodoEntry
 import com.crownedjester.soft.todosmanager.presenter.base.BasePresenter
 import com.crownedjester.soft.todosmanager.presenter.base.BaseView
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.Flow
 
-interface DashboardContract {
+interface AddEditTodoContract {
+
     interface Presenter : BasePresenter {
 
         fun onViewCreated()
 
-        fun onNavigate()
-
-        fun onItemLongClicked(scope: CoroutineScope, entry: TodoEntry)
+        fun onSaveTodo(scope: CoroutineScope)
 
     }
 
     interface View : BaseView<Presenter> {
 
-        fun displayTodosEntries(todosFlow: Flow<List<TodoEntry>>)
+        fun postTodo(): TodoEntry
 
-        fun navigateToCreateTodo()
+        fun findNavArgs()
 
     }
 }

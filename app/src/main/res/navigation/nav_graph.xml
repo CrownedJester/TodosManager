@@ -15,7 +15,7 @@
 
     <fragment
         android:id="@+id/addTodoFragment"
-        android:name="com.crownedjester.soft.todosmanager.presentation.fragment.add_todo.AddTodoFragment"
+        android:name="com.crownedjester.soft.todosmanager.presentation.fragment.add_todo.AddEditTodoFragment"
         android:label="AddTodoFragment">
         <action
             android:id="@+id/action_addTodoFragment_to_dashboardFragment"

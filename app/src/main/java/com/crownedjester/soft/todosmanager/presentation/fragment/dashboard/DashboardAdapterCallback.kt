@@ -6,4 +6,5 @@ interface DashboardAdapterCallback {
 
     fun onItemLongClicked(entry: TodoEntry)
 
+    fun onItemClick(entry: TodoEntry)
 }

@@ -19,7 +19,7 @@ class DashboardPresenter(
     }
 
     override fun onNavigate() {
-        view?.navigateToAddTodo()
+        view?.navigateToCreateTodo()
     }
 
     override fun onItemLongClicked(scope: CoroutineScope, entry: TodoEntry) {
