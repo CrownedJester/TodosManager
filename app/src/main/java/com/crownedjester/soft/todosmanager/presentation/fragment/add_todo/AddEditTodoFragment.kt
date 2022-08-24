@@ -77,4 +77,10 @@ class AddEditTodoFragment : Fragment(R.layout.fragment_add_edit_todo), AddEditTo
     override fun setPresenter(presenter: AddEditTodoContract.Presenter) {
         this.presenter = presenter
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter?.onDestroy()
+        _binding = null
+    }
 }
