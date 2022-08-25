@@ -11,7 +11,8 @@ import com.crownedjester.soft.todosmanager.data.model.TodoEntry
 import com.crownedjester.soft.todosmanager.databinding.FragmentAddEditTodoBinding
 import com.crownedjester.soft.todosmanager.presentation.util.BundleUtil
 import com.crownedjester.soft.todosmanager.presenter.add_todo.AddEditTodoContract
-import com.crownedjester.soft.todosmanager.presenter.add_todo.AddEditTodoPresenter
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -20,7 +21,7 @@ class AddEditTodoFragment : Fragment(R.layout.fragment_add_edit_todo), AddEditTo
     private var _binding: FragmentAddEditTodoBinding? = null
     private val binding get() = _binding!!
 
-    private var presenter: AddEditTodoContract.Presenter? = null
+    private val presenter: AddEditTodoContract.Presenter by inject { parametersOf(this) }
 
     private var editingTodoId: Int? = null
 
@@ -29,12 +30,10 @@ class AddEditTodoFragment : Fragment(R.layout.fragment_add_edit_todo), AddEditTo
 
         _binding = FragmentAddEditTodoBinding.bind(view)
 
-        setPresenter(AddEditTodoPresenter(this))
-
-        presenter?.onViewCreated()
+        presenter.onViewCreated()
 
         binding.fabSaveTodo.setOnClickListener {
-            presenter?.onSaveTodo(lifecycleScope)
+            presenter.onSaveTodo(lifecycleScope)
             findNavController().navigate(R.id.action_addTodoFragment_to_dashboardFragment)
         }
 
@@ -74,13 +73,10 @@ class AddEditTodoFragment : Fragment(R.layout.fragment_add_edit_todo), AddEditTo
         }
     }
 
-    override fun setPresenter(presenter: AddEditTodoContract.Presenter) {
-        this.presenter = presenter
-    }
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter?.onDestroy()
+        presenter.onDestroy()
         _binding = null
     }
 }

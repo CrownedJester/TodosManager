@@ -15,11 +15,12 @@ import com.crownedjester.soft.todosmanager.data.model.TodoEntry
 import com.crownedjester.soft.todosmanager.databinding.FragmentDashboardBinding
 import com.crownedjester.soft.todosmanager.presentation.util.BundleUtil
 import com.crownedjester.soft.todosmanager.presenter.dashboard.DashboardContract
-import com.crownedjester.soft.todosmanager.presenter.dashboard.DashboardPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class DashboardFragment : Fragment(R.layout.fragment_dashboard), DashboardContract.View,
     DashboardAdapterCallback {
@@ -27,18 +28,18 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), DashboardContra
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var presenter: DashboardContract.Presenter
+    private val presenter: DashboardContract.Presenter by inject { parametersOf(this) }
 
     private val adapter = DashboardAdapter(this)
 
     private val navController by lazy { findNavController() }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View, savedInstanceState: Bundle?
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         _binding = FragmentDashboardBinding.bind(view)
-
-        setPresenter(DashboardPresenter(this))
 
         binding.apply {
             recyclerViewTodos.adapter = adapter
@@ -69,13 +70,12 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), DashboardContra
     }
 
     override fun navigateToEditTodo(entry: TodoEntry) {
-        setFragmentResult(BundleUtil.SEND_TODO_REQUEST_KEY, bundleOf(BundleUtil.TODO_KEY to entry))
+        setFragmentResult(
+            BundleUtil.SEND_TODO_REQUEST_KEY, bundleOf(BundleUtil.TODO_KEY to entry)
+        )
         navController.navigate(R.id.action_dashboardFragment_to_addTodoFragment)
     }
 
-    override fun setPresenter(presenter: DashboardContract.Presenter) {
-        this.presenter = presenter
-    }
 
     override fun onDestroy() {
         super.onDestroy()

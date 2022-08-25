@@ -2,7 +2,6 @@ package com.crownedjester.soft.todosmanager.presenter.dashboard
 
 import com.crownedjester.soft.todosmanager.data.model.TodoEntry
 import com.crownedjester.soft.todosmanager.presenter.base.BasePresenter
-import com.crownedjester.soft.todosmanager.presenter.base.BaseView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 
@@ -19,7 +18,7 @@ interface DashboardContract {
 
     }
 
-    interface View : BaseView<Presenter> {
+    interface View {
 
         fun displayTodosEntries(todosFlow: Flow<List<TodoEntry>>)
 

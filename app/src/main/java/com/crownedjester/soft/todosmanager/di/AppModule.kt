@@ -7,6 +7,10 @@ import com.crownedjester.soft.todosmanager.domain.repository.TodosRepository
 import com.crownedjester.soft.todosmanager.domain.use_cases.delete_todo.DeleteTodo
 import com.crownedjester.soft.todosmanager.domain.use_cases.get_todos.GetTodos
 import com.crownedjester.soft.todosmanager.domain.use_cases.post_todo.PostTodo
+import com.crownedjester.soft.todosmanager.presenter.add_todo.AddEditTodoContract
+import com.crownedjester.soft.todosmanager.presenter.add_todo.AddEditTodoPresenter
+import com.crownedjester.soft.todosmanager.presenter.dashboard.DashboardContract
+import com.crownedjester.soft.todosmanager.presenter.dashboard.DashboardPresenter
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
@@ -36,4 +40,15 @@ val useCasesModule = module {
 
     single { GetTodos(get()) }
 
+}
+
+val presenterModule = module {
+
+    factory<DashboardContract.Presenter> { (view: DashboardContract.View) ->
+        DashboardPresenter(view)
+    }
+
+    factory<AddEditTodoContract.Presenter> { (view: AddEditTodoContract.View) ->
+        AddEditTodoPresenter(view)
+    }
 }
