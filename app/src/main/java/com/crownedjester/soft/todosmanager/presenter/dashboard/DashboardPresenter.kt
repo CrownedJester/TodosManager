@@ -7,31 +7,26 @@ import kotlinx.coroutines.CoroutineScope
 import org.koin.java.KoinJavaComponent.inject
 
 class DashboardPresenter(
-    view: DashboardContract.View
+    private val view: DashboardContract.View
 ) : DashboardContract.Presenter {
 
     private val deleteTodo by inject<DeleteTodo>(DeleteTodo::class.java)
     private val getTodos by inject<GetTodos>(GetTodos::class.java)
-    private var view: DashboardContract.View? = view
 
     override fun onViewCreated() {
-        view?.displayTodosEntries(getTodos())
+        view.displayTodosEntries(getTodos())
     }
 
     override fun onFabClick() {
-        view?.navigateToCreateTodo()
+        view.navigateToCreateTodo()
     }
 
-    override fun onItemLongClicked(scope: CoroutineScope, entry: TodoEntry) {
+    override fun onItemSwiped(scope: CoroutineScope, entry: TodoEntry) {
         deleteTodo(scope, entry)
     }
 
     override fun onItemClick(entry: TodoEntry) {
-        view?.navigateToEditTodo(entry)
-    }
-
-    override fun onDestroy() {
-        this.view = null
+        view.navigateToEditTodo(entry)
     }
 
 }

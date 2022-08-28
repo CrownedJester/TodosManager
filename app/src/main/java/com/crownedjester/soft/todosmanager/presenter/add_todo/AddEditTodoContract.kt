@@ -1,12 +1,11 @@
 package com.crownedjester.soft.todosmanager.presenter.add_todo
 
 import com.crownedjester.soft.todosmanager.data.model.TodoEntry
-import com.crownedjester.soft.todosmanager.presenter.base.BasePresenter
 import kotlinx.coroutines.CoroutineScope
 
 interface AddEditTodoContract {
 
-    interface Presenter : BasePresenter {
+    interface Presenter {
 
         fun onViewCreated()
 

@@ -76,7 +76,6 @@ class AddEditTodoFragment : Fragment(R.layout.fragment_add_edit_todo), AddEditTo
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter.onDestroy()
         _binding = null
     }
 }

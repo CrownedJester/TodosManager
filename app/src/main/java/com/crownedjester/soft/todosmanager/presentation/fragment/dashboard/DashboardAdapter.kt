@@ -36,11 +36,6 @@ class DashboardAdapter(private val dashboardAdapterCallback: DashboardAdapterCal
 
                 textViewTodoDate.text = entry.publishDate
 
-                itemView.setOnLongClickListener {
-                    dashboardAdapterCallback.onItemLongClicked(entry)
-                    false
-                }
-
                 itemView.setOnClickListener {
                     dashboardAdapterCallback.onItemClick(entry)
                 }
@@ -58,7 +53,6 @@ class DashboardAdapter(private val dashboardAdapterCallback: DashboardAdapterCal
 
     override fun getItemCount(): Int =
         differ.currentList.size
-
 
     override fun onBindViewHolder(holder: TodoItemViewHolder, position: Int) {
         val todo = differ.currentList[position]

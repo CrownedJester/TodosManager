@@ -4,7 +4,6 @@ import com.crownedjester.soft.todosmanager.data.model.TodoEntry
 
 interface DashboardAdapterCallback {
 
-    fun onItemLongClicked(entry: TodoEntry)
-
     fun onItemClick(entry: TodoEntry)
+
 }

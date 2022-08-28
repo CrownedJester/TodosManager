@@ -4,21 +4,17 @@ import com.crownedjester.soft.todosmanager.domain.use_cases.post_todo.PostTodo
 import kotlinx.coroutines.CoroutineScope
 import org.koin.java.KoinJavaComponent.inject
 
-class AddEditTodoPresenter(view: AddEditTodoContract.View) : AddEditTodoContract.Presenter {
+class AddEditTodoPresenter(private val view: AddEditTodoContract.View) :
+    AddEditTodoContract.Presenter {
 
     private val postTodo by inject<PostTodo>(PostTodo::class.java)
-    private var view: AddEditTodoContract.View? = view
 
     override fun onViewCreated() {
-        view?.findNavArgs()
+        view.findNavArgs()
     }
 
     override fun onSaveTodo(scope: CoroutineScope) {
-        view?.postTodo()?.let { postTodo(scope, it) }
-    }
-
-    override fun onDestroy() {
-        view = null
+        postTodo(scope, view.postTodo())
     }
 
 }

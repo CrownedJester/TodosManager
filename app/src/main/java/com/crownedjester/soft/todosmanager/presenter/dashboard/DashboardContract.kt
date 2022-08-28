@@ -1,18 +1,17 @@
 package com.crownedjester.soft.todosmanager.presenter.dashboard
 
 import com.crownedjester.soft.todosmanager.data.model.TodoEntry
-import com.crownedjester.soft.todosmanager.presenter.base.BasePresenter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 
 interface DashboardContract {
-    interface Presenter : BasePresenter {
+    interface Presenter {
 
         fun onViewCreated()
 
         fun onFabClick()
 
-        fun onItemLongClicked(scope: CoroutineScope, entry: TodoEntry)
+        fun onItemSwiped(scope: CoroutineScope, entry: TodoEntry)
 
         fun onItemClick(entry: TodoEntry)
 
